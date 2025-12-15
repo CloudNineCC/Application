@@ -279,3 +279,239 @@ footer li {
 footer strong {
     color: #667eea;
 }
+
+/* Detail View Styles */
+.detail-view {
+    padding: 30px;
+}
+
+.detail-header {
+    margin-bottom: 20px;
+}
+
+.btn-back {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.btn-back:hover {
+    background: #5568d3;
+}
+
+.detail-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.detail-tab-btn {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.detail-tab-btn:hover {
+    background: #f0f0f0;
+}
+
+.detail-tab-btn.active {
+    border-bottom: 3px solid #667eea;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.detail-tab-content {
+    display: none;
+}
+
+.detail-tab-content.active {
+    display: block;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Segment Cards */
+.segment-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f9f9f9;
+}
+
+.segment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.segment-header h4 {
+    margin: 0;
+    color: #667eea;
+}
+
+.segment-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+/* Comment Cards */
+.comment-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-date {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.btn-delete-small {
+    background: transparent;
+    border: none;
+    color: #dc3545;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+
+.btn-delete-small:hover {
+    color: #c82333;
+}
+
+.add-comment-form {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.add-comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+/* Activity Timeline */
+.activity-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-left: 3px solid #667eea;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+}
+
+.activity-icon {
+    font-size: 1.5rem;
+}
+
+.activity-content p {
+    margin: 0 0 5px 0;
+}
+
+.activity-details {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.activity-date {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+/* Pricing Table */
+.pricing-summary {
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.pricing-summary h4 {
+    margin: 0;
+    color: #667eea;
+    font-size: 1.5rem;
+}
+
+.pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.pricing-table th,
+.pricing-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.pricing-table th {
+    background: #f7f7f7;
+    font-weight: 600;
+    color: #333;
+}
+
+.pricing-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+/* Delete button in itinerary card - smaller, less intrusive */
+.itinerary-card .btn-delete {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+}
+
+/* Small city ID text in segments */
+.city-id-small {
+    font-size: 0.8rem;
+    color: #999;
+}

@@ -154,15 +154,15 @@ This creates three secrets:
 **Manual secret creation** (if needed):
 ```bash
 # Create itineraries database password
-echo "Id@12345" | gcloud secrets create itineraries-db-password \
+printf '%s' "Id@12345" | gcloud secrets create itineraries-db-password \
   --data-file=- --project=cloudnine-475221
 
 # Create JWT secret
-echo "your-jwt-secret-$(openssl rand -hex 32)" | gcloud secrets create jwt-secret \
+printf '%s' "your-jwt-secret-$(openssl rand -hex 32)" | gcloud secrets create jwt-secret \
   --data-file=- --project=cloudnine-475221
 
 # Create Google Client ID
-echo "641211583543-p7s4smapf77ublrhb2mp0ssjqpcmmc4e.apps.googleusercontent.com" | \
+printf '%s' "641211583543-p7s4smapf77ublrhb2mp0ssjqpcmmc4e.apps.googleusercontent.com" | \
   gcloud secrets create google-client-id \
   --data-file=- --project=cloudnine-475221
 ```
@@ -236,6 +236,17 @@ DB_USER=pricing_user
 DB_PASSWORD=p123
 DB_NAME=pricing_db
 ALLOWED_ORIGINS=*
+```
+
+**Non-zero pricing quotes**:
+
+If the Pricing tab loads but shows `$0.00` for some segments, `pricing_db.rate_table` is missing rows for those `city_id` + `season_id` + `lodging_class` combinations.
+
+For existing deployments created before `2025-12-15`, apply `Database/pricing_additional_rates_2025_12_15.sql` to patch the missing cities (safe to re-run):
+```bash
+cat Database/pricing_additional_rates_2025_12_15.sql | \
+  ssh -i ~/.ssh/databasesql raunak@136.113.150.64 \
+  "mysql -h 10.128.0.3 -u pricing_user -pp123 pricing_db"
 ```
 
 **Check VM services**:
