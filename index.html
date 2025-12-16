@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Planner - Cloud Computing Sprint 2</title>
+    <title>Travel Planner</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
@@ -64,7 +64,6 @@
             <div id="create-result"></div>
         </div>
 
-        <!-- Detailed Itinerary View (hidden by default) -->
         <div id="detail-view" class="detail-view" style="display: none;">
             <div class="detail-header">
                 <button id="back-to-list" class="btn-back">← Back to Itineraries</button>
@@ -91,14 +90,12 @@
                 </div>
                 <div id="segments-list"></div>
 
-                <!-- Add Segment Form (hidden by default) -->
                 <div id="add-segment-form" class="form" style="display: none;">
                     <h4>Add New Segment</h4>
                     <div class="form-group">
                         <label>Destination City:</label>
                         <select id="new-segment-city" required>
                             <option value="">-- Select a city --</option>
-                            <!-- Will be populated dynamically -->
                         </select>
                     </div>
                     <div class="form-group">

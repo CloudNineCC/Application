@@ -280,7 +280,6 @@ footer strong {
     color: #667eea;
 }
 
-/* Detail View Styles */
 .detail-view {
     padding: 30px;
 }
@@ -346,7 +345,6 @@ footer strong {
     margin-bottom: 20px;
 }
 
-/* Segment Cards */
 .segment-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -386,7 +384,6 @@ footer strong {
     background: #c82333;
 }
 
-/* Comment Cards */
 .comment-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -438,7 +435,6 @@ footer strong {
     resize: vertical;
 }
 
-/* Activity Timeline */
 .activity-item {
     display: flex;
     gap: 15px;
@@ -466,7 +462,6 @@ footer strong {
     color: #999;
 }
 
-/* Pricing Table */
 .pricing-summary {
     background: #e3f2fd;
     padding: 20px;
@@ -504,13 +499,11 @@ footer strong {
     background: #f9f9f9;
 }
 
-/* Delete button in itinerary card - smaller, less intrusive */
 .itinerary-card .btn-delete {
     padding: 4px 8px;
     font-size: 0.75rem;
 }
 
-/* Small city ID text in segments */
 .city-id-small {
     font-size: 0.8rem;
     color: #999;

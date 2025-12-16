@@ -76,7 +76,6 @@ async function loadDestinations() {
         })
         
         if (response.status === 401) {
-            // Unauthorized - redirect to login
             window.auth?.logout()
             container.innerHTML = '<div class="error-message">Please log in to view destinations.</div>'
             return
@@ -193,7 +192,6 @@ async function loadItineraries() {
                 </div>
             `
 
-            // Make card clickable to show detail view
             card.style.cursor = 'pointer'
             card.addEventListener('click', () => showDetailView(itinerary.id))
 
@@ -256,36 +254,30 @@ function switchToItinerariesTab() {
     document.querySelector('[data-tab="itineraries"]').click()
 }
 
-// Detail View Management
 let currentItineraryId = null
 const PRICING_MS_URL = `${API_BASE_URL}/composite`
 
 function showDetailView(itineraryId) {
     currentItineraryId = itineraryId
 
-    // Hide main tabs, show detail view
     document.querySelector('.tabs').style.display = 'none'
     document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none')
     document.getElementById('detail-view').style.display = 'block'
 
-    // Load itinerary data
     loadItineraryDetails(itineraryId)
 }
 
 function hideDetailView() {
     currentItineraryId = null
 
-    // Show main tabs, hide detail view
     document.querySelector('.tabs').style.display = 'flex'
     document.getElementById('detail-view').style.display = 'none'
 
-    // Restore active tab
     const activeTab = document.querySelector('.tab-button.active')
     if (activeTab) {
         const tabName = activeTab.dataset.tab
         document.getElementById(`${tabName}-tab`).style.display = 'block'
 
-        // Reload itineraries if on that tab to show latest data
         if (tabName === 'itineraries') {
             loadItineraries()
         }
@@ -302,13 +294,11 @@ async function loadItineraryDetails(itineraryId) {
             headers['Authorization'] = `Bearer ${token}`
         }
 
-        // Fetch itinerary details
         const response = await fetch(`${ITINERARIES_API}/itineraries/${itineraryId}`, { headers })
         if (!response.ok) throw new Error('Failed to load itinerary')
 
         const itinerary = await response.json()
 
-        // Update header
         document.getElementById('detail-title').textContent = itinerary.name
         document.getElementById('detail-meta').innerHTML = `
             <span><strong>Owner:</strong> ${itinerary.owner_user_id}</span>
@@ -317,7 +307,6 @@ async function loadItineraryDetails(itineraryId) {
             <span><strong>End:</strong> ${itinerary.end_date || 'Not set'}</span>
         `
 
-        // Update overview
         document.getElementById('overview-content').innerHTML = `
             <p>${itinerary.description || 'No description provided.'}</p>
             <div style="margin-top: 20px;">
@@ -326,7 +315,6 @@ async function loadItineraryDetails(itineraryId) {
             </div>
         `
 
-        // Load segments, comments, activity, pricing
         loadSegments(itineraryId)
         loadComments(itineraryId)
         loadActivity(itineraryId)
@@ -338,7 +326,6 @@ async function loadItineraryDetails(itineraryId) {
     }
 }
 
-// Cache for destinations to avoid repeated API calls
 let destinationsCache = null
 
 async function getCityName(cityId) {
@@ -376,7 +363,6 @@ async function loadSegments(itineraryId) {
             return
         }
 
-        // Fetch city names for all segments
         const segmentsWithCities = await Promise.all(
             segments.map(async seg => ({
                 ...seg,
@@ -422,7 +408,7 @@ async function deleteSegment(itineraryId, segmentId) {
         if (!response.ok) throw new Error('Failed to delete segment')
 
         loadSegments(itineraryId)
-        loadPricing(itineraryId) // Refresh pricing
+        loadPricing(itineraryId)
     } catch (error) {
         console.error('Error deleting segment:', error)
         alert('Failed to delete segment')
@@ -547,7 +533,6 @@ async function loadPricing(itineraryId) {
             return
         }
 
-        // Format segments for PricingMS
         const quoteRequest = {
             segments: segments.map(seg => ({
                 city_id: seg.city_id,
@@ -558,7 +543,6 @@ async function loadPricing(itineraryId) {
             currency: 'USD'
         }
 
-        // Create quote via PricingMS
         const quoteResponse = await fetch(`${PRICING_MS_URL}/quotes`, {
             method: 'POST',
             headers,
@@ -570,7 +554,6 @@ async function loadPricing(itineraryId) {
         const pricing = await quoteResponse.json()
         const cityNames = await ensureCityNames(headers)
 
-        // Display pricing
         let taxesFees = ''
         if (pricing.taxes_fees_applied && pricing.taxes_fees_applied.length > 0) {
             taxesFees = `
@@ -622,7 +605,6 @@ async function loadPricing(itineraryId) {
     }
 }
 
-// Load cities dropdown for segment form
 async function loadCitiesDropdown() {
     try {
         const token = window.auth?.getJWTToken()
@@ -649,9 +631,7 @@ async function loadCitiesDropdown() {
     }
 }
 
-// Delete itinerary function
 async function deleteItinerary(itineraryId, event) {
-    // Stop event propagation to prevent opening detail view
     event.stopPropagation()
 
     if (!confirm('Delete this itinerary? This action cannot be undone.')) return
@@ -668,25 +648,21 @@ async function deleteItinerary(itineraryId, event) {
 
         if (!response.ok) throw new Error('Failed to delete itinerary')
 
-        loadItineraries() // Refresh list
+        loadItineraries()
     } catch (error) {
         console.error('Error deleting itinerary:', error)
         alert('Failed to delete itinerary')
     }
 }
 
-// Make deleteItinerary globally accessible for onclick
 window.deleteItinerary = deleteItinerary
 
-// Event listeners for detail view
 document.addEventListener('DOMContentLoaded', () => {
-    // Back button
     const backButton = document.getElementById('back-to-list')
     if (backButton) {
         backButton.addEventListener('click', hideDetailView)
     }
 
-    // Detail tabs
     document.querySelectorAll('.detail-tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const tabName = btn.dataset.detailTab
@@ -702,12 +678,11 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    // Add segment button
     const addSegmentBtn = document.getElementById('add-segment-btn')
     if (addSegmentBtn) {
         addSegmentBtn.addEventListener('click', () => {
             document.getElementById('add-segment-form').style.display = 'block'
-            loadCitiesDropdown() // Load cities when form opens
+            loadCitiesDropdown()
         })
     }
 
@@ -759,8 +734,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('new-segment-end').value = ''
 
                 loadSegments(currentItineraryId)
-                loadPricing(currentItineraryId) // Refresh pricing
-                loadActivity(currentItineraryId) // Refresh activity
+                loadPricing(currentItineraryId)
+                loadActivity(currentItineraryId)
             } catch (error) {
                 console.error('Error adding segment:', error)
                 alert('Failed to add segment')
@@ -768,7 +743,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    // Add comment button
     const addCommentBtn = document.getElementById('add-comment-btn')
     if (addCommentBtn) {
         addCommentBtn.addEventListener('click', async () => {
@@ -800,7 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 document.getElementById('new-comment-text').value = ''
                 loadComments(currentItineraryId)
-                loadActivity(currentItineraryId) // Refresh activity
+                loadActivity(currentItineraryId)
             } catch (error) {
                 console.error('Error adding comment:', error)
                 alert('Failed to add comment')
