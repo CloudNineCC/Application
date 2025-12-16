@@ -280,6 +280,8 @@ function hideDetailView() {
 
         if (tabName === 'itineraries') {
             loadItineraries()
+        } else if (tabName === 'destinations') {
+            loadDestinations()
         }
     }
 }
